@@ -1,5 +1,5 @@
 
-function sym(...args) {
+const sym = (...args) => {
     //Initialize our global variable;
     let final = [];
     args.map(arr => {

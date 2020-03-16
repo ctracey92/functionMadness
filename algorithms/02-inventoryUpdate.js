@@ -6,7 +6,7 @@
 
 
 
-function updateInventory(arr1, arr2) {
+const updateInventory = (arr1, arr2) => {
     //We only need to search over the second array as the first is just getting updated.
     arr2.map(item => {
         //Initialize the inclusion variable, this will determine if we are pushing it to arr1.

@@ -5,7 +5,7 @@ For example, aab should return 2 because it has 6 total permutations (aab, aab, 
 Remember to use Read-Search-Ask if you get stuck. Try to pair program. Write your own code.
 */
 
-function permAlone(str) {
+const permAlone = (str) => {
     //Get all of each of the letters into an array for later use
     let lettersArr = str.split("");
 
@@ -68,17 +68,22 @@ function permAlone(str) {
                 if (item === currItem[currIndex + 1] || item === currItem[currIndex - 1])  {
                 //    console.log(`Item: ${item}, item+1${currItem[currIndex + 1]}, item-1 ${currItem[currIndex - 1]}`)
                     noRepeats = false;
-                    console.log(noRepeats)
                 }
             })
 
-            console.log(noRepeats)
+            // console.log(noRepeats)
             if (noRepeats) { finalPermutations.push(i) }
         })
 
-        return finalPermutations;
+        return finalPermutations.length;
     }
 
 }
 
+
+//These are the 3 problem test cases, and have a deviation of 1 right now. There should be no deviations between one run of the program and the next, also they are all getting an incorrect answer (with the exception of abfdefa which is getting it 50% of the time).
+//I believe the problem is coming from the code block starting on line 63-76. Need to test further. 
+console.log(permAlone('abfdefa'));
 console.log(permAlone('aaab'));
+console.log(permAlone('aaabb'));
+
