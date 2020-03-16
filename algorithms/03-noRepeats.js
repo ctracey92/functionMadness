@@ -10,11 +10,19 @@ const permAlone = (str) => {
     let lettersArr = str.split("");
 
 
+    //Holding array of unique letters
+    let uniqueChar = []
 
-    let allSame = []
-    lettersArr.map(i => { if (!allSame.includes(i)) { allSame.push(i) } })
+    //Maps over the lettersArr to find the unique letters and push them into our holding array (uniqueChar)
+    lettersArr.map(i => { if (!uniqueChar.includes(i)) { uniqueChar.push(i) } })
+
+    //If there is only one letter return 1
     if(lettersArr.length === 1){return 1}
-    else if (allSame.length === 1 && lettersArr.length > 1) { return 0 }
+
+    //Checks to make sure not all the letters are the same. If it is, and there are more than 2 letters, it will kick it out as zero.
+    else if (uniqueChar.length === 1 && lettersArr.length > 1) { return 0 }
+
+    //Otherwise if there are enough letters, it will run the rest of the function.
     else {
         //Holding arr for our final answer
         let permutations = [];
@@ -56,34 +64,43 @@ const permAlone = (str) => {
             permutations.push(holding.join(""))
         })
 
-        //Filter out duplicate strings
-        let filteredPermutations = permutations.filter((sum, item) => { if (!sum.includes(item)) { return item } }, [])
+        //Our holding array for our permutations without repeating letters
         let finalPermutations = [];
 
-        filteredPermutations.map(i => {
-            let noRepeats = true;
-            let currItem = i.split("")
-            currItem.map(item => {
-                let currIndex = currItem.indexOf(item)
-                if (item === currItem[currIndex + 1] || item === currItem[currIndex - 1])  {
-                //    console.log(`Item: ${item}, item+1${currItem[currIndex + 1]}, item-1 ${currItem[currIndex - 1]}`)
-                    noRepeats = false;
-                }
-            })
+        //Map over the permutations to find the permutation that do not have repeating letters.
+        permutations.map(i => {
 
-            // console.log(noRepeats)
-            if (noRepeats) { finalPermutations.push(i) }
+            //The regex pattern below is utilizing a positive lookead to see if a letter is repeated. This is done using repeatable catpure groups. 
+            let regex = /(?=([a-z])\1)/gi;
+
+            //Testing to see if it passes the test
+            let nonrepeated = !regex.test(i)
+
+            //If it has passed the test, push it into our final permutations array
+            if(nonrepeated){finalPermutations.push(i)}
+
         })
 
+        //Return the final number of permutations without repeating eltters
         return finalPermutations.length;
     }
 
 }
 
 
-//These are the 3 problem test cases, and have a deviation of 1 right now. There should be no deviations between one run of the program and the next, also they are all getting an incorrect answer (with the exception of abfdefa which is getting it 50% of the time).
-//I believe the problem is coming from the code block starting on line 63-76. Need to test further. 
-console.log(permAlone('abfdefa'));
-console.log(permAlone('aaab'));
-console.log(permAlone('aaabb'));
+//The code is now mostly running as intended, I am still getting the deviation of 1 on some of them, when it should be 0.
+
+
+//Test cases and their expected outputs
+console.log(permAlone("aab"), "<- should be 2") //should return 2.
+console.log(permAlone("aaa"), "<- should be 0") //should return 0.
+console.log(permAlone("aabb"), "<- should be 8") //should return 8.
+console.log(permAlone("abcdefa"), "<- should be 3600") //should return 3600.
+console.log(permAlone("abfdefa"), "<- should be 2640") //should return 2640.
+console.log(permAlone("zzzzzzzz"), "<- should be 0") //should return 0.
+console.log(permAlone("a"), "<- should be 1") //should return 1.
+console.log(permAlone("aaab"), "<- should be 0") //should return 0.
+console.log(permAlone("aaabb"), "<- should be 12") //should return 12.
+
+
 
