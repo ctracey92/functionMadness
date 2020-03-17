@@ -17,6 +17,31 @@ Below we'll take their corresponding indices and add them.
 
 const pairwise = (arr,arg) => {
 
+    //Initialize our holding array for the indexes of the matches
+    let indexes = [];
+
+    //Map over our arr of nums passing the additional parameter of the index so that we can access it
+    arr.map((i,indexOfI) => {
+
+        //Get an array of all of the values that come after i
+        let allThatsLeft = arr.slice(indexOfI+1)
+
+        //Map over those values so that we can see if they add together to make our arg
+        allThatsLeft.map((item, indexOfItem) => {
+
+            //If they do add together AND have not been already used, push their respective indexes into our array
+            if(i + item === arg && !indexes.includes(indexOfI) && !indexes.includes(indexOfI + indexOfItem + 1)){
+                indexes.push(indexOfI, indexOfI+indexOfItem+1)
+            }
+
+        })
+
+    })
+
+
+    //If the indexes array has stuff in it, reduce it and spit it back out, otherwise return 0
+    return indexes.length ? indexes.reduce((sum,curr) => sum+=curr) : 0
+
 };
 
 console.log(pairwise([1, 4, 2, 3, 0, 5], 7) , "<- should return 11" ) //should return 11.
