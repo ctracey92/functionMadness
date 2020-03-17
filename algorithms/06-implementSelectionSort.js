@@ -7,32 +7,19 @@ Instructions: Write a function selectionSort which takes an array of integers as
 */
 
 const selectionSort = array => {
-
-    
   for (let i = 0; i < array.length; i++) {
-
-        for(let a = i; a < array.length; a++){
-            if()
-        }
-
-
-
-
-
-    let unSorted = true;
-    do {
-        unSorted = false;
-        for(let a = i+1; a < array.length; a++){
-            if(array[a] < array[i]){
-                let temp = array[a];
-                ar
-
-                unSorted = true
-            }
-        }
-    } while (unSorted);
+    let minimum = i;
+    for (let a = i + 1; a < array.length; a++) {
+      if (array[minimum] > array[a]) {
+        minimum = a;
+      }
+      if (minimum !== i) {
+        let temp = array[i];
+        array[i] = array[minimum];
+        array[minimum] = temp;
+      }
+    }
   }
-
   return array;
 };
 
