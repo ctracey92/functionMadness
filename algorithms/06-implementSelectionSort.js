@@ -6,9 +6,35 @@ Instructions: Write a function selectionSort which takes an array of integers as
 
 */
 
-const selectionSort = (array) => {
+const selectionSort = array => {
 
-}
+    
+  for (let i = 0; i < array.length; i++) {
+
+        for(let a = i; a < array.length; a++){
+            if()
+        }
+
+
+
+
+
+    let unSorted = true;
+    do {
+        unSorted = false;
+        for(let a = i+1; a < array.length; a++){
+            if(array[a] < array[i]){
+                let temp = array[a];
+                ar
+
+                unSorted = true
+            }
+        }
+    } while (unSorted);
+  }
+
+  return array;
+};
 
 /*
 selectionSort should return a sorted array (least to greatest).
@@ -16,4 +42,24 @@ selectionSort should return an array that is unchanged except for order.
 selectionSort should not use the built-in .sort() method.
 */
 
-console.log(selectionSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]));
+console.log(
+  selectionSort([
+    1,
+    4,
+    2,
+    8,
+    345,
+    123,
+    43,
+    32,
+    5643,
+    63,
+    123,
+    43,
+    2,
+    55,
+    1,
+    234,
+    92
+  ])
+);
