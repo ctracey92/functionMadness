@@ -10,7 +10,6 @@ const largestPrimeFactor = (num) => {
     while(numLeft > 1){
         if(numLeft%primeFactor === 0){
             numLeft /= primeFactor;
-            console.log("Work")
         }
         else{
             let newPrimeFound = false;
@@ -25,7 +24,9 @@ const largestPrimeFactor = (num) => {
                 if(prime){
                     newPrimeFound = true;
                     primeFactor = counter;
-                };
+                }else{
+                    counter++;
+                }
             }
         
         }
@@ -40,4 +41,4 @@ const largestPrimeFactor = (num) => {
 // console.log(largestPrimeFactor(5), "<- should return 5") //should return 5.
 // console.log(largestPrimeFactor(7), "<- should return 7") //should return 7.
 // console.log(largestPrimeFactor(13195), "<- should return 29") //should return 29.
-// console.log(largestPrimeFactor(600851475143), "<- should return 6857") //should return 6857.
+console.log(largestPrimeFactor(600851475143), "<- should return 6857") //should return 6857.
