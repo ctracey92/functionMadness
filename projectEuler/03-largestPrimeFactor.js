@@ -14,27 +14,47 @@ The prime factors here are 3,2,2,2 the highest being 3.
 */
 
 const largestPrimeFactor = (num) => {
+    //Inisitialize our prime factor at 2, the smallest prime
     let primeFactor = 2;
+
+    //Copy our num into numLeft so we don't mutate it
     let numLeft = num;
 
+    //While numLeft is greater than 0, we have to keep running the code 
     while(numLeft > 1){
+        //If numLeft is evenly divisible by our current prime factor, we can keep using it, and will divide our numLeft by it.
         if(numLeft%primeFactor === 0){
             numLeft /= primeFactor;
         }
+
+        //Otherwise we need a new prime factor
         else{
+            //Our condition to break out of our next while loop
             let newPrimeFound = false;
+
+            //Our counter to find the next prime
             let counter = primeFactor + 1;
-            while(newPrimeFound === false){
+
+            //While we have not found a new prime keep running
+            while(!newPrimeFound){
+                //We will start by assuming something is a prime until we find out otherwise
                 let prime = true;
+                
+                //Run through all numbers 2 -> counter and check to see if the counter is divisible by it to determine if the counter is prime or not
                 for(let i = 2; i < counter; i++){
                     if(counter%i === 0){
                         prime = false;
                     };
                 };
+
+                //If the num is prime we set our Prime Factor to the counter and break out
                 if(prime){
                     newPrimeFound = true;
                     primeFactor = counter;
-                }else{
+                }
+
+                //Otherwise we keep on going and icrement our counter by 1
+                else {
                     counter++;
                 }
             }
