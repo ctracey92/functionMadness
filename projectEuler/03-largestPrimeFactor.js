@@ -1,6 +1,16 @@
 'use strict'
 /*
 What is the largest prime factor of the given number?
+"Prime Factorization" is finding which prime numbers multiply together to make the original number. Think of the below tree:
+                                24
+                               /  \
+                              3    8
+                                  / \
+                                 2   4
+                                    / \
+                                    2 2
+
+The prime factors here are 3,2,2,2 the highest being 3.
 */
 
 const largestPrimeFactor = (num) => {
@@ -36,9 +46,11 @@ const largestPrimeFactor = (num) => {
     return primeFactor
 }
 
-// console.log(largestPrimeFactor(2), "<- should return 2") //should return 2.
-// console.log(largestPrimeFactor(3), "<- should return 3") //should return 3.
-// console.log(largestPrimeFactor(5), "<- should return 5") //should return 5.
-// console.log(largestPrimeFactor(7), "<- should return 7") //should return 7.
-// console.log(largestPrimeFactor(13195), "<- should return 29") //should return 29.
+
+//Test Cases
+console.log(largestPrimeFactor(2), "<- should return 2") //should return 2.
+console.log(largestPrimeFactor(3), "<- should return 3") //should return 3.
+console.log(largestPrimeFactor(5), "<- should return 5") //should return 5.
+console.log(largestPrimeFactor(7), "<- should return 7") //should return 7.
+console.log(largestPrimeFactor(13195), "<- should return 29") //should return 29.
 console.log(largestPrimeFactor(600851475143), "<- should return 6857") //should return 6857.
