@@ -43,7 +43,7 @@ const gap = (g, m, n) => {
             if (primeCheck(counter + g)) {
                 let noPrimes = true;
                 for (let a = counter + 1; a < counter + g; a++) {
-                    if (primeCheck(a)) { noPrimes = false; }
+                    if (primeCheck(a)) { noPrimes = false; break;}
                 }
                 if (noPrimes) { answer.push(counter, counter + g); break; }
                 else { counter += g; }
