@@ -37,30 +37,35 @@ const gap = (g, m, n) => {
         }
         return prime
     }
-
-    let check = (m,n) => {
-        for (var i = m; i <= n - g; i+2) {
-            
-            if (primeCheck(i)) {
-                if (primeCheck(i + g)) {
-                    let noPrimes = true;
-                    for (let a = i + 1; a < i + g; a++) {
-                        if (primeCheck(a)) { noPrimes = false; }
-                    }
-                    if (noPrimes) { answer.push(i, i + g); return }
+    let counter = m;
+    while (counter <= n - g) {
+        if (primeCheck(counter)) {
+            if (primeCheck(counter + g)) {
+                let noPrimes = true;
+                for (let a = counter + 1; a < counter + g; a++) {
+                    if (primeCheck(a)) { noPrimes = false; }
                 }
+                if (noPrimes) { answer.push(counter, counter + g); break; }
+                else { counter += g; }
             }
+            else{
+                counter++;
+            }
+        } 
+        else {
+            counter++;
         }
-    }
 
-    if(m%2===0){
-        check(m+1,n);
-    }else{
-        check(m,n);
     }
-    
 
     if (answer.length > 0) { return answer }
     else { return null }
 
 }
+// console.log(gap(2,100,110))
+// console.log(gap(4, 100, 110))
+// console.log(gap(6,152423, 152429))
+// console.log(gap(6,100,110))
+// console.log(gap(8,300,400))
+// console.log(gap(10,300,400))
+// console.log(gap(2,100,110))
