@@ -24,19 +24,31 @@ gap(6,100,110) --> null : between 100 and 110 we have 101, 103, 107, 109 but 101
 
 "use strict"
 const gap = (g, m, n) => {
-    //This will be our final answer
+    //This will be our final answer supplied in array format
     let answer = [];
     //Function to see if the number is a prime
-    let primeCheck = (num) => {
-        let prime = true;
-        for (let i = 2; i < num; i++) {
-            if (num % i === 0) {
-                prime = false;
-                return
-            }
+    const primeCheck = (num) => {
+        if (num <= 1) {
+          return true
+        } else if (num <= 3) {
+          return true
+        } else if (num%2 === 0 || num%3 === 0) {
+          return false
         }
-        return prime
-    }
+       
+        let i = 5
+        while (i*i <= num) {
+          if (num%i === 0 || num%(i+2) === 0) {
+            return false
+          }
+          i += 6
+        }
+        return true
+      }
+
+
+
+
     let counter = m;
     while (counter <= n - g) {
         if (primeCheck(counter)) {
