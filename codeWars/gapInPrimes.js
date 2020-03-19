@@ -22,62 +22,83 @@ gap(4, 130, 200) --> [163, 167] or (163, 167) or {163, 167}
 gap(6,100,110) --> null : between 100 and 110 we have 101, 103, 107, 109 but 101-107is not a 6-gap because there is 103in between and 103-109is not a 6-gap because there is 107in between.
 */
 
-"use strict"
+"use strict";
 const gap = (g, m, n) => {
-    //This will be our final answer supplied in array format
-    let answer = [];
-    //Function to see if the number is a prime
-    const primeCheck = (num) => {
-        if (num <= 1) {
-          return true
-        } else if (num <= 3) {
-          return true
-        } else if (num%2 === 0 || num%3 === 0) {
-          return false
-        }
-       
-        let i = 5
-        while (i*i <= num) {
-          if (num%i === 0 || num%(i+2) === 0) {
-            return false
-          }
-          i += 6
-        }
-        return true
-      }
+  //This will be our final answer supplied in array format
+  let answer = [];
 
-
-
-
-    let counter = m;
-    while (counter <= n - g) {
-        if (primeCheck(counter)) {
-            if (primeCheck(counter + g)) {
-                let noPrimes = true;
-                for (let a = counter + 1; a < counter + g; a++) {
-                    if (primeCheck(a)) { noPrimes = false; break;}
-                }
-                if (noPrimes) { answer.push(counter, counter + g); break; }
-                else { counter += g; }
-            }
-            else{
-                counter++;
-            }
-        } 
-        else {
-            counter++;
-        }
-
+  //Function to see if the number is a prime
+  const primeCheck = num => {
+    //If the number is 1 its prime
+    if (num <= 1) {
+      return true;
+    }
+    //Otherwise if it is 2 or 3 its prime
+    else if (num <= 3) {
+      return true;
+    }
+    //If it is divisible by 2 or 3 its not a prime
+    else if (num % 2 === 0 || num % 3 === 0) {
+      return false;
     }
 
-    if (answer.length > 0) { return answer }
-    else { return null }
+    //With the basic tests out of the way we can get into the harder tests
+    //We start at 5 because that is the next prime number
+    let i = 5;
+    //While i is less than the square root of the number we continue
+    while (i * i <= num) {
+      // If the number is evenly divisiible by i or by i+2, thus checking odd numbers that arent divisible by 3.
+      if (num % i === 0 || num % (i + 2) === 0) {
+        return false;
+      }
+      i += 6;
+    }
+    //If it passes the above tests its a prime number
+    return true;
+  };
 
-}
-// console.log(gap(2,100,110))
-// console.log(gap(4, 100, 110))
-// console.log(gap(6,152423, 152429))
-// console.log(gap(6,100,110))
-// console.log(gap(8,300,400))
-// console.log(gap(10,300,400))
-// console.log(gap(2,100,110))
+  //We initialize our counter starting at m, the beggining
+  let counter = m;
+  //While the counter is less than or equal to n-g (the end of our range) we continue
+  while (counter <= n - g) {
+    //If that number is prime, we will check to see if the number plus our gap is also prime
+    if (primeCheck(counter)) {
+      //If this is also a prime...
+      if (primeCheck(counter + g)) {
+        //We will check all of the odd numbers in between them to make sure none of those are primes either
+        let noPrimes = true;
+        for (let a = counter + 2; a < counter + g; a += 2) {
+          if (primeCheck(a)) {
+            noPrimes = false;
+            break;
+          }
+        }
+        if (noPrimes) {
+          answer.push(counter, counter + g);
+          break;
+        } else {
+          counter += g;
+        }
+      }
+      //Else we increment one and keep going
+      else {
+        counter++;
+      }
+    }
+    //Else we increment one and keep going
+    else {
+      counter++;
+    }
+  }
+
+  if (answer.length > 0) {
+    return answer;
+  } else {
+    return null;
+  }
+};
+console.log(gap(2,100,110), "<- Should return [101,103]") //Should return [101,103]  
+console.log(gap(4, 100, 110), "<- Should return [103,107]") //Should return [103,107]
+console.log(gap(6,100,110), "<- Should return null") //Should return null 
+console.log(gap(8,300,400), "<- Should return [359,367]") //Should return [359,367] 
+console.log(gap(10,300,400), "<- Should return [337,347]") //Should return [337,347] 
