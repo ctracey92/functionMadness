@@ -11,9 +11,12 @@ All letters will be lowercase and all inputs will be valid.
 */
 
 function high(x) {
+  //Split our long string into individual words
   let words = x.split(" ");
+  //Our alphabet string to be referenced for points later
   let alphabet = "abcdefghijklmnopqrstuvwxyz";
 
+  //Map over the words array and get the value of each word by splitting it and calculating its score
   let scores = words.map(item => {
     let score = 0;
     let letters = item.split("");
@@ -21,6 +24,7 @@ function high(x) {
     return score;
   });
 
+  //Return the word with the highest score (using index of to get the first one)
   return words[scores.indexOf(Math.max(...scores))];
 }
 
