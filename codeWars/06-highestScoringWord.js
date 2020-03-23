@@ -12,7 +12,7 @@ All letters will be lowercase and all inputs will be valid.
 
 function high(x) {
   let words = x.split(" ");
-  let alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+  let alphabet = "abcdefghijklmnopqrstuvwxyz";
 
   let scores = words.map(item => {
     let score = 0;
@@ -21,13 +21,10 @@ function high(x) {
     return score;
   });
 
-  let highest = Math.max(...scores);
-
-  return words[scores.indexOf(highest)];
+  return words[scores.indexOf(Math.max(...scores))];
 }
 
 //Test Cases
-
 console.log(high('man i need a taxi up to ubud'), '<- Should be taxi'); // Should be taxi
 console.log(high('what time are we climbing up the volcano'), '<- Should be volcano'); // Should be volcano
 console.log(high('take me to semynak'), ' <- Should be semynak'); // Should be semynak
