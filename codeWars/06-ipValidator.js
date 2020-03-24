@@ -19,6 +19,7 @@ Note that leading zeros (e.g. 01.02.03.04) are considered invalid.
 
 const isValidIP = str => {
   let numStr = str.split(".");
+  if(!numStr.every(i => i!=="")){return false}
   if (
     !numStr.every(i => {
       if (i.length > 1) {
@@ -35,7 +36,7 @@ const isValidIP = str => {
     console.log("failing _'s");
     return false;
   }
-  if (!numStr.every(i => /[a-z]/ig.test(i))) {
+  if (!numStr.every(i => /[^a-z]/ig.test(i))) {
     console.log("failing letters's");
     return false;
   }
@@ -60,7 +61,7 @@ const isValidIP = str => {
 // console.log(isValidIP("256.1.2.3"), false);
 // console.log(isValidIP("1.2.3.4.5"), false);
 // console.log(isValidIP("123,45,67,89"), false);
-console.log(isValidIP("1e0.1e1.1e2.2e2"), false);
+// console.log(isValidIP("1e0.1e1.1e2.2e2"), false);
 // console.log(isValidIP(" 1.2.3.4"), false);
 // console.log(isValidIP("1.2.3.4 "), false);
 // console.log(isValidIP("12.34.56.-7"), false);
