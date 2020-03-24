@@ -36,7 +36,7 @@ const isValidIP = str => {
     console.log("failing _'s");
     return false;
   }
-  if (!numStr.every(i => /[^a-z]/ig.test(i))) {
+  if (numStr.every(i => /[a-z]/ig.test(i))) {
     console.log("failing letters's");
     return false;
   }
@@ -45,25 +45,26 @@ const isValidIP = str => {
     console.log("failing length")
     return false;
   }
+  if(!numStr.every(i => !i.includes("\n"))){return false}
   if (!nums.every(i => i === Math.floor(i) && i === Math.abs(i)));
 
   return nums.every(i => 0 <= i && i <= 255);
 };
 
-// console.log(isValidIP("0.0.0.0"), true);
-// console.log(isValidIP("12.255.56.1"), true);
-// console.log(isValidIP("137.255.156.100"), true);
-// console.log(isValidIP(""), false);
-// console.log(isValidIP("abc.def.ghi.jkl"), false);
-// console.log(isValidIP("123.456.789.0"), false);
-// console.log(isValidIP("12.34.56"), false);
-// console.log(isValidIP("01.02.03.04"), false);
-// console.log(isValidIP("256.1.2.3"), false);
-// console.log(isValidIP("1.2.3.4.5"), false);
-// console.log(isValidIP("123,45,67,89"), false);
-// console.log(isValidIP("1e0.1e1.1e2.2e2"), false);
-// console.log(isValidIP(" 1.2.3.4"), false);
-// console.log(isValidIP("1.2.3.4 "), false);
-// console.log(isValidIP("12.34.56.-7"), false);
-console.log(isValidIP("1.2.3.4\n"), false);
-console.log(isValidIP("\n1.2.3.4"), false);
+// console.log(isValidIP("0.0.0.0"), "<- Should return true"); //Should return true
+// console.log(isValidIP("12.255.56.1"), "<- Should return true"); //Should return true
+// console.log(isValidIP("137.255.156.100"), "<- Should return true"); //Should return true
+// console.log(isValidIP(""), "<- Should return false"); //Should return false
+// console.log(isValidIP("abc.def.ghi.jkl"), "<- Should return false"); //Should return false
+// console.log(isValidIP("123.456.789.0"), "<- Should return false"); //Should return false
+// console.log(isValidIP("12.34.56"), "<- Should return false"); //Should return false
+// console.log(isValidIP("01.02.03.04"), "<- Should return false"); //Should return false
+// console.log(isValidIP("256.1.2.3"), "<- Should return false"); //Should return false
+// console.log(isValidIP("1.2.3.4.5"), "<- Should return false"); //Should return false
+// console.log(isValidIP("123,45,67,89"), "<- Should return false"); //Should return false
+console.log(isValidIP("1e0.1e1.1e2.2e2"), "<- Should return false"); //Should return false
+// console.log(isValidIP(" 1.2.3.4"), "<- Should return false"); //Should return false
+// console.log(isValidIP("1.2.3.4 "), "<- Should return false"); //Should return false
+// console.log(isValidIP("12.34.56.-7"), "<- Should return false"); //Should return false
+// console.log(isValidIP("1.2.3.4\n"), "<- Should return false"); //Should return false
+// console.log(isValidIP("\n1.2.3.4"), "<- Should return false"); //Should return false
