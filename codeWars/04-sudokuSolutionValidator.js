@@ -35,8 +35,7 @@ validSolution([
 
 const validSolution = board => {
   //Assume every board is valid until told otherwise
-  
-  
+
   let valid = true;
   //Check to see if any boards include a zero
   board.map(i => {
@@ -47,54 +46,83 @@ const validSolution = board => {
   //Kick it out if it is invalid
   if (!valid) {
     return valid;
-  };
+  }
   let colCount = 0;
   //check to make sure each column has 1-9
-  while(colCount < 9){
-    let items = board.reduce((score, i) => {score.push(i[colCount]); return score},[])
+  while (colCount < 9) {
+    let items = board.reduce((score, i) => {
+      score.push(i[colCount]);
+      return score;
+    }, []);
     items.sort();
-    for(let i = 0; i < 9; i++){
-        if(items[i] !== i+1){
-            valid = false;
-        };
+    for (let i = 0; i < 9; i++) {
+      if (items[i] !== i + 1) {
+        valid = false;
+      }
     }
-    if(!valid){return valid};
+    if (!valid) {
+      return valid;
+    }
     colCount++;
   }
   //Make sure every row has 1-9
   let rowCount = 0;
-  while(rowCount < 9){
-    let boardCopy = [...board]
-    let items = boardCopy[rowCount]
+  while (rowCount < 9) {
+    let boardCopy = [...board];
+    let items = boardCopy[rowCount];
 
-    for(let i = 0; i < 9; i++){
-        if(!items.includes(i+1)){
-            valid = false;
-            break;
-        };
+    for (let i = 0; i < 9; i++) {
+      if (!items.includes(i + 1)) {
+        valid = false;
+        break;
+      }
     }
-    if(!valid){return valid};
+    if (!valid) {
+      return valid;
+    }
     rowCount++;
   }
   //Make sure every sub-grid has 1-9
-  let boxedBoard = [];
+  let subArrayed = [];
   //Step 1: Get all of the rows into 3 sub rows to start forming the squares
-  for(let i = 0; i < board.length; i++){
-      let holder = [];
-      let counter = 0;
-      while(holder.length < 3){
-          let threeNums = [];
-        while(threeNums.length < 3){
-            threeNums.push(board[i][counter]);
-            counter++;;
-        };
-        holder.push(threeNums);
+  for (let i = 0; i < board.length; i++) {
+    let holder = [];
+    let counter = 0;
+    while (holder.length < 3) {
+      let threeNums = [];
+      while (threeNums.length < 3) {
+        threeNums.push(board[i][counter]);
+        counter++;
       }
+      holder.push(threeNums);
+    }
 
-      boxedBoard.push(holder)
-  };
-console.log(boxedBoard)
+    subArrayed.push(holder);
+  }
+
+  //Step 2: Group them in multiples of 3 into boxes;
+  let boxedArr = [];
   
+
+  //This is where my code is breaking down, need to get them into sub boxes.
+  let column = 0;
+  let row = 0;
+  while ( boxedArr.length < 9) {
+    
+
+
+    
+    let holder = [];
+    while (holder.length < 3) {
+      let curr = subArrayed[row%9][column%3]
+      holder.push(curr);
+      row++;
+    }
+    console.log(column)
+    boxedArr.push(holder);
+    column++;
+  }
+  console.log(boxedArr,"8888");
 
   return valid;
 };
