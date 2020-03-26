@@ -68,8 +68,7 @@ const validSolution = board => {
   //Make sure every row has 1-9
   let rowCount = 0;
   while (rowCount < 9) {
-    let boardCopy = [...board];
-    let items = boardCopy[rowCount];
+    let items = board[rowCount];
 
     for (let i = 0; i < 9; i++) {
       if (!items.includes(i + 1)) {
@@ -102,31 +101,41 @@ const validSolution = board => {
 
   //Step 2: Group them in multiples of 3 into boxes;
   let boxedArr = [];
-  
-
-  //This is where my code is breaking down, need to get them into sub boxes.
-  let column = 0;
   let row = 0;
-  while ( boxedArr.length < 9) {
-    
-
-
-    
-    let holder = [];
-    while (holder.length < 3) {
-      let curr = subArrayed[row%9][column%3]
-      holder.push(curr);
-      row++;
+  //i is now the column we will continually grab each chunk and make it into a new row for us to evaluate.
+  for (let i = 0; i < 3; i++) {
+    let counter = 0;
+    while (counter < 3) {
+      let holder = [];
+      while (holder.length < 9) {
+        let curr = subArrayed[row % 9][i];
+        holder.push(...curr);
+        row++;
+      }
+      boxedArr.push(holder);
+      counter++;
     }
-    console.log(column)
-    boxedArr.push(holder);
-    column++;
   }
-  console.log(boxedArr,"8888");
 
+  //Make sure every row has 1-9
+  let currI = 0;
+  while (currI < 9) {
+    let items = boxedArr[currI];
+    for (let i = 0; i < 9; i++) {
+      if (!items.includes(i + 1)) {
+        valid = false;
+        break;
+      }
+    }
+    if (!valid) {
+      return valid;
+    }
+    currI++;
+  }
   return valid;
 };
 
+//Test Cases
 console.log(
   validSolution([
     [5, 3, 4, 6, 7, 8, 9, 1, 2],
@@ -142,17 +151,32 @@ console.log(
   true
 );
 
-// console.log(
-//   validSolution([
-//     [5, 3, 4, 6, 7, 8, 9, 1, 2],
-//     [6, 7, 2, 1, 9, 0, 3, 4, 8],
-//     [1, 0, 0, 3, 4, 2, 5, 6, 0],
-//     [8, 5, 9, 7, 6, 1, 0, 2, 0],
-//     [4, 2, 6, 8, 5, 3, 7, 9, 1],
-//     [7, 1, 3, 9, 2, 4, 8, 5, 6],
-//     [9, 0, 1, 5, 3, 7, 2, 1, 4],
-//     [2, 8, 7, 4, 1, 9, 6, 3, 5],
-//     [3, 0, 0, 4, 8, 1, 1, 7, 9]
-//   ]),
-//   false
-// );
+console.log(
+  validSolution([
+    [5, 3, 4, 6, 7, 8, 9, 1, 2],
+    [6, 7, 2, 1, 9, 0, 3, 4, 8],
+    [1, 0, 0, 3, 4, 2, 5, 6, 0],
+    [8, 5, 9, 7, 6, 1, 0, 2, 0],
+    [4, 2, 6, 8, 5, 3, 7, 9, 1],
+    [7, 1, 3, 9, 2, 4, 8, 5, 6],
+    [9, 0, 1, 5, 3, 7, 2, 1, 4],
+    [2, 8, 7, 4, 1, 9, 6, 3, 5],
+    [3, 0, 0, 4, 8, 1, 1, 7, 9]
+  ]),
+  false
+);
+
+console.log(
+  validSolution([
+    [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    [2, 3, 1, 5, 6, 4, 8, 9, 7],
+    [3, 1, 2, 6, 4, 5, 9, 7, 8],
+    [4, 5, 6, 7, 8, 9, 1, 2, 3],
+    [5, 6, 4, 8, 9, 7, 2, 3, 1],
+    [6, 4, 5, 9, 7, 8, 3, 1, 2],
+    [7, 8, 9, 1, 2, 3, 4, 5, 6],
+    [8, 9, 7, 2, 3, 1, 5, 6, 4],
+    [9, 7, 8, 3, 1, 2, 6, 4, 5]
+  ]),
+  false
+);
