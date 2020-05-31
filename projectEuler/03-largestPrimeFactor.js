@@ -4,13 +4,14 @@ What is the largest prime factor of the given number?
 "Prime Factorization" is finding which prime numbers multiply together to make the original number. Think of the below tree:
                                 24
                                /  \
-                              3    8
+                              2    12
                                   / \
-                                 2   4
+                                 3   4
                                     / \
                                     2 2
 
 The prime factors here are 3,2,2,2 the highest being 3.
+You should start with the smallest prime factor and then slowly move up...
 */
 
 const largestPrimeFactor = (num) => {
