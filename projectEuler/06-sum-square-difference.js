@@ -11,8 +11,15 @@ Find the difference between the sum of the squares of the first n natural number
 */
 
 const sumSquareDiffernece = n => {
+    const NUMS = Array.from({ length: n }, (_, i) => i + 1)
+    let sumOfSquares = Math.pow(NUMS.reduce((sum, i) => sum += i), 2)
+    let sumofN = NUMS.reduce((sum, i) => sum += Math.pow(i, 2));
 
+    return sumOfSquares - sumofN;
 }
 
-let res = sumSquareDiffernece(10)
-console.log(res, 'Should be 2640')
+//Test Cases
+console.log(sumSquareDiffernece(10), 'Should be 2640');
+console.log(sumSquareDiffernece(20), 'Should be 41230');
+console.log(sumSquareDiffernece(100), 'Should be 25164150');
+console.log(sumSquareDiffernece(100) === 25164150);
